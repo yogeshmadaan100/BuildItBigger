@@ -9,6 +9,7 @@ package com.nanodegree.builditbigger.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.nanodegree.builditbigger.MyJokeProvider;
 
 import javax.inject.Named;
 
@@ -35,7 +36,7 @@ public class MyEndpoint {
     @ApiMethod(name = "getJoke")
     public MyBean getJoke() {
         MyBean response = new MyBean();
-        response.setData("Hi, " +" This is my first joke");
+        response.setData(new MyJokeProvider().getJoke());
 
         return response;
     }

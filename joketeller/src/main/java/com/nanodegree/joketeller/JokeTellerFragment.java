@@ -18,7 +18,6 @@ import android.widget.TextView;
 public class JokeTellerFragment extends Fragment {
 
     public static final String KEY_JOKE = "joke";
-
     public JokeTellerFragment() {
         // Required empty public constructor
     }

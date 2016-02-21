@@ -1,31 +1,32 @@
 package com.nanodegree.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class JokeActivity extends AppCompatActivity {
+import com.nanodegree.joketeller.JokeTellerActivity;
+import com.nanodegree.joketeller.JokeTellerFragment;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class JokeActivity extends AppCompatActivity implements JokeInterface {
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override
@@ -49,4 +50,19 @@ public class JokeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void renderJoke(String joke) {
+        Intent i = new Intent(this, JokeTellerActivity.class);
+        i.putExtra(JokeTellerFragment.KEY_JOKE, joke);
+        startActivity(i);
+    }
+
+    @Override
+    public void displayFailedMessage() {
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.err_unable_to_get_joke),Toast.LENGTH_LONG).show();
+    }
+
+
+
 }
