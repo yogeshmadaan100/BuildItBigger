@@ -22,3 +22,21 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+evaluationDependsOn ":app"
+evaluationDependsOn ":backend"
+
+task runAppEngineAndConnectedTest(type: GradleBuild) {
+    dependsOn ":backend:appengineRun"
+    project(":backend").afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
+    tasks = [':app:connectedAndroidTest']
+}
+
+task runAllTest(type: GradleBuild) {
+    dependsOn "runAppEngineAndConnectedTest"
+    tasks = [":backend:appengineStop"]
+    doLast {
+        println 'Completed!'
+    }
+}
