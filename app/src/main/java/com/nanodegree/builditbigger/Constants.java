@@ -14,7 +14,7 @@ public class Constants {
      * Debug: link to local database
      * Production : link to the server
      */
-    public static final Environment environment = Environment.DEBUG;
+    public static final Environment environment = Environment.PRODUCTION;
 
     /***
      * Define the local server IP
